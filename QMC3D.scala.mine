@@ -1,0 +1,41 @@
+package QMC
+import scala.util.Random
+object Step{
+	def apply() = 0.01
+}
+class Walker(a:Double, b:Double, c:Double){
+	def V(x:Double,y:Double,z:Double):Double=(-1.0/Math.sqrt(x*x+y*y+z*z))
+	def forward=(_:Double)+Math.sqrt(Step())*(Random.nextGaussian())
+	var x:Double=a
+	var y:Double=b
+	var z:Double=c
+	var next_x=forward(x)
+	var next_y=forward(y)
+	var next_z=forward(z)
+//	def getBm():Double=Math.exp(-(V(x,y,z)+V(next_x,next_y,next_z))*0.5*Step())
+	def getBm():Double=Math.exp(-V(x,y,z)*Step())
+	def upDate(){
+		x=next_x
+		y=next_y
+		z=next_z
+		next_x=forward(next_x)
+		next_y=forward(next_y)
+		next_z=forward(next_z)
+	}
+}
+object Main extends App{
+	var Walkers=List.fill(100000)(new Walker((Random.nextDouble-0.5),(Random.nextDouble-0.5),(Random.nextDouble-0.5))).par
+	0 to 100000 foreach{
+		_=>{
+			var shadowWalkers = List[Walker] ()//or flat a List[List]
+			Walkers.foreach(_.upDate)
+			val avg_Bm=(Walkers.map(_.getBm()).foldLeft(0.0)(_+_))/Walkers.length
+		//	println(Walkers.length)
+			println(-Math.log(avg_Bm)/Step())
+			Walkers.foreach({a:Walker =>
+				shadowWalkers:::=List.fill((a.getBm()/avg_Bm*(100000/Walkers.length.toDouble)+Random.nextDouble()).toInt)(a)	
+			})		
+			Walkers = shadowWalkers.par
+		}
+	}
+}

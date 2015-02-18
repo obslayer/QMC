@@ -1,0 +1,40 @@
+;; If your project contains a lot of files, it is advisable to enable (:disable-source-load-on-startup t)
+;; Otherwise Ensime might incur a massive lag at startup time
+;; See more information about that at http://aemoncannon.github.com/ensime/index.html
+
+(
+  :subprojects (
+    (
+      :name "qmc"
+      :module-name "qmc"
+      :depends-on-modules (
+      
+      )
+      :package "default"
+      :version "0.1-SNAPSHOT"
+      :compile-deps (
+        "/home/wang/.sbt/boot/scala-2.10.4/lib/scala-library.jar"
+      )
+      :runtime-deps (
+        "/home/wang/.sbt/boot/scala-2.10.4/lib/scala-library.jar"
+        "/home/wang/workspace/QMC/target/scala-2.10/classes"
+        "/home/wang/workspace/QMC/target/scala-2.10/classes"
+      )
+      :test-deps (
+        "/home/wang/.sbt/boot/scala-2.10.4/lib/scala-library.jar"
+        "/home/wang/workspace/QMC/target/scala-2.10/classes"
+        "/home/wang/workspace/QMC/target/scala-2.10/test-classes"
+      )
+      :source-roots (
+        "/home/wang/workspace/QMC/src/main/scala"
+        "/home/wang/workspace/QMC/src/main/java"
+        "/home/wang/workspace/QMC/target/scala-2.10/src_managed/main"
+        "/home/wang/workspace/QMC/src/test/scala"
+        "/home/wang/workspace/QMC/src/test/java"
+        "/home/wang/workspace/QMC/target/scala-2.10/src_managed/test"
+      )
+      :target "/home/wang/workspace/QMC/target/scala-2.10/classes"
+      :test-target "/home/wang/workspace/QMC/target/scala-2.10/test-classes"
+    )
+  )
+)

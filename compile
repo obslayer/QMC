@@ -1,0 +1,1 @@
+g++ QMCORG.cpp -lgsl  -lgslcblas  -lm
